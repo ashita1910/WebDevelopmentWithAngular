@@ -18,7 +18,8 @@ export class DishdetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.params['id'];
+    const id1 = +this.route.snapshot.params['id'];
+    const id = String(id1);
     this.dish = this.dishservice.getDish(id);
   }
 
