@@ -34,6 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
 import { baseURL } from './shared/baseurl';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import { baseURL } from './shared/baseurl';
     HttpClientModule
   ],
   entryComponents: [LoginComponent],
-  providers: [DishService, PromotionService, LeaderService,
+  providers: [DishService, PromotionService, LeaderService, ProcessHTTPMsgService, 
     {provide: 'BaseURL', useValue: baseURL}],
   bootstrap: [AppComponent]
 })
