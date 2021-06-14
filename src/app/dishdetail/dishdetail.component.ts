@@ -42,14 +42,16 @@ export class DishdetailComponent implements OnInit {
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
     private location: Location, private fb: FormBuilder,
-    @Inject('BaseURL') private BaseURL: any) {
+    @Inject('BaseURL') public BaseURL: any) {
       this.createForm();
      }
 
     ngOnInit() {
       this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds, errMess => this.errMess = <any>errMess);
-      this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, errmess => this.errMess = <any>errmess);
+      this.route.params
+      .pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
+        errmess => this.errMess = <any>errmess );
     }
 
     createForm() {
@@ -95,7 +97,6 @@ export class DishdetailComponent implements OnInit {
       const d = date.getDay();
       const y = date.getFullYear();
       this.comment.author = this.comment.author + ' ' + m + ' ' + d + ', ' + y;
-      this.dish.comments.push(this.comment);
       this.dishcopy.comments.push(this.comment);
       this.dishservice.putDish(this.dishcopy)
       .subscribe(dish => {
