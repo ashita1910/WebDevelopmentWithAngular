@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, expand } from '../animations/app.animation';
 import { FeedbackService } from '../services/feedback.service';
 import { Feedback, ContactType } from '../shared/feedback';
 
@@ -13,7 +13,8 @@ import { Feedback, ContactType } from '../shared/feedback';
     'style': 'display: block;'
     },
     animations: [
-      flyInOut()
+      flyInOut(),
+      expand()
     ]
 })
 export class ContactComponent implements OnInit {
@@ -111,10 +112,8 @@ export class ContactComponent implements OnInit {
     this.displaySpinner = true;
     this.feedbackservice.submitFeedback(this.feedback)
     .subscribe(feedback1 => {
-      this.displaySpinner = true;
-      this.feedbackRes = feedback1;
-      console.log("Feedback: " + this.feedbackcopy);
-      console.log("Rest" + this.feedbackRes);
+      this.feedbackcopy = feedback1;
+      this.displaySpinner = false;
     },
     errmess => { this.feedback = null; this.feedbackRes = null; this.feedbackcopy = null; this.errMess = <any>errmess; });
     setTimeout(() => {
@@ -133,9 +132,6 @@ export class ContactComponent implements OnInit {
       });
       this.feedbackFormDirective.resetForm();
     }, 5000);
-    this.displaySpinner = false;
-    this.feedbackcopy = this.feedbackRes;
-    console.log(this.feedbackcopy);
     this.displayForm = false;
   }
 

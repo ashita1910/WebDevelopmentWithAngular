@@ -38,7 +38,7 @@
         <h3>Send us your Feedback</h3>
         <p *ngIf="displayForm && !feedbackcopy">{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
-        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="displayForm && !feedbackcopy">
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="displayForm && !feedbackcopy" [@expand]>
             <p>
                 <mat-form-field class="half-width">
                     <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -84,7 +84,7 @@
             <h4>Loading . . . Please Wait</h4>
         </div>
 
-        <div *ngIf="feedbackcopy && !displayForm">
+        <div *ngIf="feedbackcopy && !displayForm" [@expand]>
             <h3>Your Submission</h3>
             <p>First Name: {{feedbackcopy.firstname}}</p>
             <p>Last Name: {{feedbackcopy.lastname}}</p>
@@ -95,7 +95,7 @@
             <p>Feedback: {{feedbackcopy.message}}</p>
         </div>
 
-        <div fxFlex *ngIf="errMess">
+        <div *ngIf="errMess && !displayForm">
             <h2>Error</h2>
             <h4>{{errMess}}</h4>
         </div>
